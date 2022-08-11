@@ -1,0 +1,132 @@
+<div class="spinner-wrapper" *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+<form [formGroup]="this.newUser" (submit)="model ? actualizar() : crear()">
+    <div class="modal-header">
+        <h2 class="modal-title padre">
+            {{ title }} Usuario
+        </h2>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="cerrar()"></button>
+    </div>
+    <div class="modal-body">
+
+        <ng-container>
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Nombres</mat-label>
+                <input type="text" matInput formControlName="firstName" autocomplete="off" />
+                <mat-error *ngIf="newUser.get('firstName')?.hasError('required')">
+                    Los nombres son requeridos.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Apellidos</mat-label>
+                <input type="text" matInput formControlName="lastName" autocomplete="off" />
+                <mat-error *ngIf="newUser.get('lastName')?.hasError('required')">
+                    Los apellidos son requeridos.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Identificación</mat-label>
+                <input type="text" matInput formControlName="identification" autocomplete="off" />
+                <mat-error *ngIf="newUser.get('identification')?.hasError('required')">
+                    La identificación es requerida.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Correo</mat-label>
+                <input type="email" matInput formControlName="email" autocomplete="off" />
+                <mat-error *ngIf="newUser.get('email')?.hasError('required')">
+                    El correo es requerido.
+                </mat-error>
+                <mat-error *ngIf="newUser.get('email')?.hasError('email')">
+                    Por favor ingrese una dirección de correo valida.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input type="password" matInput formControlName="password" [type]="hide ? 'password' : 'text'"
+                    autocomplete="off" />
+                <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{
+                        hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="clientId">
+                    <mat-option *ngFor="let item of clients" [value]="item.clientId">
+                        {{ item.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="newUser.get('idRoll')?.hasError('required')">
+                  El rol es requerido.
+                </mat-error>
+              </mat-form-field>
+            <div>
+                <label
+                    [ngClass]="newUser.controls['password'].hasError('required') || newUser.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+                    <i class="material-icons">
+                        {{ newUser.controls['password'].hasError('required') ||
+                        newUser.controls['password'].hasError('minlength') ? 'cancel' :
+                        'check_circle' }}
+                    </i>
+                    ¡La Contraseña debe Contener mínimo 8 carácteres.
+                </label>
+
+                <label class="col"
+                    [ngClass]="newUser.controls['password'].hasError('required') || newUser.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+                    <i class="material-icons">
+                        {{ newUser.controls['password'].hasError('required') ||
+                        newUser.controls['password'].hasError('hasNumber') ? 'cancel' :
+                        'check_circle' }}
+                    </i>
+                    ¡La Contraseña debe contener por lo menos 1 número.
+                </label>
+
+                <label class="col"
+                    [ngClass]="newUser.controls['password'].hasError('required') || newUser.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+                    <i class="material-icons">
+                        {{ newUser.controls['password'].hasError('required') ||
+                        newUser.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+                        'check_circle' }}
+                    </i>
+                    ¡La Contraseña Debe contener al menos 1 en Mayúsculas!
+                </label>
+
+                <label class="col"
+                    [ngClass]="newUser.controls['password'].hasError('required') || newUser.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+                    <i class="material-icons">
+                        {{ newUser.controls['password'].hasError('required') ||
+                        newUser.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+                        'check_circle' }}
+                    </i>
+                    ¡La Contraseña Debe contener al menos 1 letra en mayúsculas y minúsculas!
+                </label>
+
+                <label class="col"
+                    [ngClass]="newUser.controls['password'].hasError('required') || newUser.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+                    <i class="material-icons">
+                        {{ newUser.controls['password'].hasError('required') ||
+                        newUser.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+                        'check_circle' }}
+                    </i>
+                    ¡La Contraseña debe contener por lo menos un caracter especial!
+                </label>
+            </div>
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="cerrar()">
+            Cancelar
+        </button>
+        <button class="btn btn-primary">
+            {{ this.title }}
+        </button>
+    </div>
+</form>

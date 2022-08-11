@@ -1,0 +1,24 @@
+.example-full-width{
+    width: 100%;
+}
+.mat-raised-button{
+    width: 100%;
+}
+
+.inputsForm{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 235px;
+}
+
+.modal-title{
+    margin: 0%;
+}
+
+.padre {
+    background-color: #fafafa;
+    margin: 1rem;
+    padding: 1rem;
+    /* IMPORTANTE */
+    text-align: center;
+  }

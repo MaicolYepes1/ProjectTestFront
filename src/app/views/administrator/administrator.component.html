@@ -1,0 +1,136 @@
+<div class="spinner-wrapper" *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+
+<div class="row">
+    <div class="col-md-4 cardSpacing">
+        <mat-card class="example-card">
+            <mat-card-content>
+                <label>Cliente a consultar: </label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Clientes</mat-label>
+                    <mat-select>
+                        <mat-option value="">Seleccione un cliente</mat-option>
+                        <mat-option (click)="getInfoClient(item)" *ngFor="let item of clientes" [value]="item.clientId">
+                            {{ item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-md-4 cardSpacing">
+        <mat-card class="example-card">
+            <mat-card-content>
+                <button class="buttonSpacing" mat-flat-button [color]="'primary'" (click)="openAdd('client')">
+                    <span class="ml-2">Crear Cliente</span>
+                </button>
+                <button *ngIf="clientId > 0" class="buttonSpacing" mat-flat-button [color]="'primary'"
+                    (click)="openAdd('user')">
+                    <span class="ml-2">Crear Usuario</span>
+                </button>
+                <button *ngIf="clientId > 0" class="buttonSpacing" mat-flat-button [color]="'primary'"
+                    (click)="openAdd('service')">
+                    <span class="ml-2">Crear Servicio</span>
+                </button>
+                <button *ngIf="clientId > 0" class="buttonSpacing" mat-flat-button [color]="'primary'"
+                    (click)="openAdd('server')">
+                    <span class="ml-2">Crear Servidor</span>
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+
+<mat-tab-group *ngIf="clientId > 0">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">desktop_mac</mat-icon>
+            Servidores
+        </ng-template>
+        <div class="row" style="width: 90%;">
+            <div class="col-md-4 cardSpacing" *ngFor="let item of servers">
+                <mat-card class="example-card" (click)="openUpdate('server', item)"
+                    [ngClass]="{'completed' : item.completed, 'nocompleted' : !item.completed}">
+                    <mat-card-content>
+                        <span>Nombre del Servidor: {{item.name}}</span>
+                        <br />
+                        <br />
+                        <span>Capacidad Total: {{item.totalCapacity}} GB</span>
+                        <br />
+                        <br />
+                        <span>Dirección IP: {{item.ip}}</span>
+                        <br />
+                        <br />
+                        <span>Capacidad ocupada: {{item.occupiedCapacity}} GB</span>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">settings_input_composite</mat-icon>
+            Servicios
+        </ng-template>
+        <mat-accordion *ngFor="let item of services">
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{item.name}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Capacidad Ocupada {{item.occupiedCapacity}} GB
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <p> Umbral : {{item.umbral}}</p>
+              <button class="buttonSpacing" mat-flat-button [color]="'primary'" (click)="openUpdate('service', item)">
+                <span class="ml-2">Actualizar</span>
+            </button>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">supervised_user_circle</mat-icon>
+            Usuarios
+        </ng-template>
+        <div>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef> Nombres </th>
+                    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="identification">
+                    <th mat-header-cell *matHeaderCellDef> Identificación </th>
+                    <td mat-cell *matCellDef="let element"> {{element.identification}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let element">
+                        <span class="tableButton" (click)="openUpdate('user', element)">
+                            <mat-icon matTooltip="Editar usuario">edit</mat-icon>
+                        </span>
+                        <!-- <span class="tableButton" (click)="openDelete(element)">
+                        <mat-icon matTooltip="Eliminar usuario">delete</mat-icon>
+                      </span> -->
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No hay datos para mostrar</td>
+                </tr>
+            </table>
+        </div>
+    </mat-tab>
+</mat-tab-group>

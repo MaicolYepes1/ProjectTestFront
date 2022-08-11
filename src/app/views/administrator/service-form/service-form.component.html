@@ -1,0 +1,49 @@
+<div class="spinner-wrapper" *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+<form [formGroup]="this.serviceData" (submit)="model ? actualizar() : crear()">
+    <div class="modal-header">
+        <h2 class="modal-title padre">
+            {{ title }} Servicio
+        </h2>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="cerrar()"></button>
+    </div>
+    <div class="modal-body">
+
+        <ng-container>
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput formControlName="name" autocomplete="off" />
+                <mat-error *ngIf="serviceData.get('name')?.hasError('required')">
+                    El Nombre es requerido.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Umbral</mat-label>
+                <input type="text" matInput formControlName="umbral" autocomplete="off" />
+                <mat-error *ngIf="serviceData.get('umbral')?.hasError('required')">
+                    El Umbral es requerido
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Capacidad Ocupada en GB</mat-label>
+                <input type="text" matInput formControlName="occupiedCapacity" autocomplete="off" />
+                <mat-error *ngIf="serviceData.get('occupiedCapacity')?.hasError('required')">
+                    La capacidad es requerida.
+                </mat-error>
+            </mat-form-field>
+
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="cerrar()">
+            Cancelar
+        </button>
+        <button class="btn btn-primary">
+            {{ this.title }}
+        </button>
+    </div>
+</form>

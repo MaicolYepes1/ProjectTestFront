@@ -1,0 +1,40 @@
+<div class="spinner-wrapper" *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+<form [formGroup]="this.clientData" (submit)="model ? actualizar() : crear()">
+    <div class="modal-header">
+        <h2 class="modal-title padre">
+            {{ title }} Cliente
+        </h2>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="cerrar()"></button>
+    </div>
+    <div class="modal-body">
+
+        <ng-container>
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput formControlName="name" autocomplete="off" />
+                <mat-error *ngIf="clientData.get('name')?.hasError('required')">
+                    El Nombre es requerido.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Identificación</mat-label>
+                <input type="text" matInput formControlName="identification" autocomplete="off" />
+                <mat-error *ngIf="clientData.get('identification')?.hasError('required')">
+                    La identificación es requerida.
+                </mat-error>
+            </mat-form-field>
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="cerrar()">
+            Cancelar
+        </button>
+        <button class="btn btn-primary">
+            {{ this.title }}
+        </button>
+    </div>
+</form>

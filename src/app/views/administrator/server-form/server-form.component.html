@@ -1,0 +1,66 @@
+<div class="spinner-wrapper" *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+<form [formGroup]="this.serverData" (submit)="model ? actualizar() : crear()">
+    <div class="modal-header">
+        <h2 class="modal-title padre">
+            {{ title }} Servidor
+        </h2>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="cerrar()"></button>
+    </div>
+    <div class="modal-body">
+
+        <ng-container>
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput formControlName="name" autocomplete="off" />
+                <mat-error *ngIf="serverData.get('name')?.hasError('required')">
+                    El nombre es requerido.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Dirección IP</mat-label>
+                <input type="text" matInput formControlName="ip" autocomplete="off" />
+                <mat-error *ngIf="serverData.get('ip')?.hasError('required')">
+                    La IP es requerida.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Capacidad Total en GB</mat-label>
+                <input type="text" matInput formControlName="totalCapacity" autocomplete="off" />
+                <mat-error *ngIf="serverData.get('totalCapacity')?.hasError('required')">
+                    La capacidad total es requerida.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="inputsForm" appearance="outline">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="clientId">
+                    <mat-option *ngFor="let item of clients" [value]="item.clientId">{{item.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button type="button" class="buttonSpacing" mat-flat-button [color]="'primary'" (click)="openAddServices = true">
+                    <span class="ml-2">Agregar Servicios</span>
+                </button>
+            </div>
+
+            <mat-form-field class="inputsForm" appearance="outline" *ngIf="openAddServices">
+                <mat-label>Servicios</mat-label>
+                <mat-select formControlName="servicios" multiple>
+                    <mat-option *ngFor="let item of servicios" [value]="item.serviceId">{{item.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="cerrar()">
+            Cancelar
+        </button>
+        <button class="btn btn-primary">
+            {{ this.title }}
+        </button>
+    </div>
+</form>

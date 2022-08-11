@@ -1,0 +1,126 @@
+.mat-form-field {
+  font-size: 12px;
+  width: 150px;
+  margin-left: 20px;
+}
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+demo-button-container {
+  padding-bottom: 16px;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+  text-align: center;
+  justify-content: center;
+  border: 1px solid #979797;
+}
+th.mat-header-cell {
+  border: 1px solid #979797;
+}
+
+.inputsearch {
+  margin-top: 1%;
+  float: right;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+.selectcolumns {
+  margin-top: 1%;
+  width: 10%;
+  padding-top: 20px;
+  font-weight: bold;
+  padding-left: 20px;
+  border-top-right-radius: 15%;
+  font-size: 1.5em;
+  color: aliceblue;
+  background-color: #2d676c;
+}
+
+.selectcolumnsResumen {
+  margin-top: 1%;
+  width: 10%;
+  padding-top: 20px;
+  font-weight: bold;
+  padding-left: 20px;
+  border-top-right-radius: 15%;
+  font-size: 1em;
+  color: aliceblue;
+  background-color: #2d676c;
+}
+
+.example-card {
+  max-width: 450px;
+}
+
+.padre {
+  /*IMPORTANTE*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.hijo {
+  background: red;
+}
+
+.divHeader {
+  margin-top: 10px;
+  width: 98%;
+}
+
+.buttonSpacing {
+  margin: 2px;
+}
+
+.cardSpacing {
+  margin-top: 5px;
+  text-transform: capitalize;
+}
+
+.example-card {
+  max-height: 200px;
+  min-height: 140px;
+}
+
+.spinner-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.201);
+  z-index: 998;
+}
+
+.row {
+  padding: 15px;
+}
+
+
+/* Structure */
+table {
+  width: 90%;
+  margin: 30px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+}
+
+.completed{
+  background-color: #4bb543;
+}
+
+.nocompleted{
+  background-color: red;
+}
